@@ -13,7 +13,7 @@ func parseHexToUint8(hex string) (uint8, error) {
 
 	hexTrimmed := strings.TrimPrefix(hex, "0x")
 
-	parsedKey, err := strconv.ParseUint(hexTrimmed, 16, 8) // 16 for base-16, 8 for bit size (uint8)
+	parsedKey, err := strconv.ParseUint(hexTrimmed, 16, 8)
 	if err != nil {
 		return 0, fmt.Errorf("error parsing key '%s' to uint8: %w", hexTrimmed, err)
 	}
