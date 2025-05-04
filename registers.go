@@ -22,6 +22,10 @@ func (r *Registers) getA() uint8 {
 	return r.A
 }
 
+func (r *Registers) setA(value uint8) {
+	r.A = value
+}
+
 func (r *Registers) getAF() uint16 {
 	return (uint16(r.A) << 8) | uint16(r.F)
 }
@@ -49,6 +53,10 @@ func (r *Registers) setDE(value uint16) {
 	r.E = uint8(value)
 }
 
+func (r *Registers) getH() uint8 {
+	return r.H
+}
+
 func (r *Registers) getHL() uint16 {
 	return (uint16(r.H) << 8) | uint16(r.L)
 }
@@ -58,16 +66,41 @@ func (r *Registers) setHL(value uint16) {
 	r.L = uint8(value)
 }
 
+func (r *Registers) decHL() {
+	value := r.getHL()
+	r.setHL(value - 1)
+}
+
+func (r *Registers) getSP() uint16 {
+	return r.SP
+}
+
+func (r *Registers) setSP(value uint16) {
+	r.SP = value
+}
+
+func (r *Registers) getPC() uint16 {
+	return r.PC
+}
+
+func (r *Registers) setPC(value uint16) {
+	r.PC = value
+}
+
+func (r *Registers) addPC(value int8) {
+	r.PC = uint16(int32(r.PC) + int32(value))
+}
+
 func (r *Registers) GetFlag(flag uint8) bool {
 	return (r.F & flag) != 0
 }
 
 func (r *Registers) SetFlag(flag uint8, set bool) {
 	if set {
-		// set flag to 1
-		r.F |= 1 << flag
+		// set flag to 1 using the provided mask
+		r.F |= flag
 	} else {
-		// inverse mask, set flag to 0
-		r.F &= ^(1 << flag)
+		// inverse the mask, then AND to clear the specific bit
+		r.F &= ^flag
 	}
 }

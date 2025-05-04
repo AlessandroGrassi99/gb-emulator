@@ -34,8 +34,8 @@ var opcodesFunc = map[int]func(*CPU, *Instruction) int{
 	// 0x1D:               OpDecE,        // DEC E
 	// 0x1E:               OpLdEN8,       // LD E, n8
 	// 0x1F:               OpRra,         // RRA
-	// 0x20:               OpJrNZE8,      // JR NZ, e8
-	// 0x21:               OpLdHLN16,     // LD HL, n16
+	0x20:               OpJrNZE8,      // JR NZ, e8
+	0x21:               OpLdHLN16,     // LD HL, n16
 	// 0x22:               OpLdMemHLIncA, // LD (HL++), A
 	// 0x23:               OpIncHL,       // INC HL
 	// 0x24:               OpIncH,        // INC H
@@ -51,8 +51,8 @@ var opcodesFunc = map[int]func(*CPU, *Instruction) int{
 	// 0x2E:               OpLdLN8,       // LD L, n8
 	// 0x2F:               OpCpl,         // CPL
 	// 0x30:               OpJrNCE8,      // JR NC, e8
-	// 0x31:               OpLdSPN16,     // LD SP, n16
-	// 0x32:               OpLdMemHLDecA, // LD (HL--), A
+	0x31:               OpLdSPN16,     // LD SP, n16
+	0x32:               OpLdMemHLDecA, // LD (HL--), A
 	// 0x33:               OpIncSP,       // INC SP
 	// 0x34:               OpIncMemHL,    // INC (HL)
 	// 0x35:               OpDecMemHL,    // DEC (HL)
@@ -177,7 +177,7 @@ var opcodesFunc = map[int]func(*CPU, *Instruction) int{
 	// 0xAC:               OpXorAH,       // XOR A, H
 	// 0xAD:               OpXorAL,       // XOR A, L
 	// 0xAE:               OpXorAMemHL,   // XOR A, (HL)
-	// 0xAF:               OpXorAA,       // XOR A, A
+	0xAF:               OpXorAA,       // XOR A, A
 	// 0xB0:               OpOrAB,        // OR A, B
 	// 0xB1:               OpOrAC,        // OR A, C
 	// 0xB2:               OpOrAD,        // OR A, D
@@ -371,7 +371,7 @@ var opcodesFunc = map[int]func(*CPU, *Instruction) int{
 	// 377 /* CB 0x79 */ : OpCbBit7C,     // BIT 7, C
 	// 378 /* CB 0x7A */ : OpCbBit7D,     // BIT 7, D
 	// 379 /* CB 0x7B */ : OpCbBit7E,     // BIT 7, E
-	// 380 /* CB 0x7C */ : OpCbBit7H,     // BIT 7, H
+	380 /* CB 0x7C */ : OpCbBit7H,     // BIT 7, H
 	// 381 /* CB 0x7D */ : OpCbBit7L,     // BIT 7, L
 	// 382 /* CB 0x7E */ : OpCbBit7MemHL, // BIT 7, (HL)
 	// 383 /* CB 0x7F */ : OpCbBit7A,     // BIT 7, A
