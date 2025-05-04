@@ -6,9 +6,11 @@ type CPU struct {
 }
 
 func (cpu *CPU) Step() int {
-	cpu.decode()
+	instr := cpu.decode()
 
-	return 4
+	cycles := instr.Execute(cpu, &instr)
+
+	return cycles
 }
 
 func (cpu *CPU) decode() Instruction {

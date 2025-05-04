@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"strings"
 )
 
@@ -56,34 +57,42 @@ func (i *Instruction) String() string {
 	return fmt.Sprintf("%s %s", i.Mnemonic, operandsStr)
 }
 
-var instructionImplementations = map[string]func(*CPU, *Instruction) int{
-	"NOP": nop,
-	// "LD":  ld,
-}
-
-func unimplemented(cpu *CPU, instr *Instruction) int {
+func OpUnimplemented(cpu *CPU, instr *Instruction) int {
 	panic(fmt.Sprintf("Unimplemented instruction called at PC: 0x%04X", cpu.Registers.PC-1))
 }
 
-func nop(cpu *CPU, instr *Instruction) int {
-	// TODO
-	return 1
+func OpNop(cpu *CPU, instr *Instruction) int {
+	return instr.Cycles[0]
 }
 
-// func ld(cpu *CPU, instr *Instruction) int {
-// 	target := instr.Operands[0]
-// 	source := instr.Operands[1]
+func OpLdBCN16(cpu *CPU, instr *Instruction) int {
+	value := cpu.fetchInstructionWord()
+	cpu.Registers.setBC(value)
 
-// 	var sourceVal uint16
-// 	switch source.Name {
-// 	case "n16":
-// 		sourceVal = cpu.fetchInstructionWord()
-// 	case "A":
-// 		sourceVal = cpu.Registers.getA()
-// 	}
+	log.Printf(
+		"0x%04X:\t%-12s ; nn=0x%04X → BC=0x%04X",
+		cpu.Registers.PC-1,
+		instr.String(),
+		value,
+		cpu.Registers.getBC(),
+	)
 
-// 	switch target.Name {
-// 	case "BC":
-// 		cpu.Registers.setBC(sourceVal)
-// 	}
-// }
+	return instr.Cycles[0]
+}
+
+func OpLdMemBCA(cpu *CPU, instr *Instruction) int {
+	addr := cpu.Registers.getBC()
+	val := cpu.Registers.getA()
+	cpu.Mmu.WriteByteAt(addr, val)
+
+	log.Printf(
+		"0x%04X:\t%-12s ; BC=0x%04X → [0x%04X]=0x%02X",
+		cpu.Registers.PC-1,
+		instr.String(),
+		addr,
+		addr,
+		val,
+	)
+
+	return instr.Cycles[0]
+}

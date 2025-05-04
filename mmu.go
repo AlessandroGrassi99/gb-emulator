@@ -20,3 +20,11 @@ func (mmu *MMU) ReadWordAt(addr uint16) uint16 {
 	high := uint16(mmu.ReadByteAt(addr + 1))
 	return (high << 8) | low
 }
+
+func (mmu *MMU) WriteByteAt(addr uint16, value uint8) {
+	if int(addr) >= len(mmu.memory) {
+		fmt.Printf("Warning: Write out of bounds at 0x%04X\n", addr)
+		return
+	}
+	mmu.memory[addr] = value
+}

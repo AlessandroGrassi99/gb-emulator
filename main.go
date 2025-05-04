@@ -9,8 +9,13 @@ import (
 )
 
 func main() {
-	for _, opcode := range opcodes {
-		fmt.Println(opcode.String())
+	for idx := range 512 {
+		opFunc, ok := opcodesFunc[idx]
+		if !ok {
+			opcodes[idx].Execute = OpUnimplemented
+		} else {
+			opcodes[idx].Execute = opFunc
+		}
 	}
 
 	mmu := &MMU{}
@@ -43,11 +48,7 @@ func main() {
 
 	fmt.Println("Starting emulation...")
 	for range 20 {
-		fmt.Printf("PC: 0x%04X | AF: 0x%04X BC: 0x%04X DE: 0x%04X HL: 0x%04X SP: 0x%04X\n",
-			cpu.Registers.PC, cpu.Registers.getAF(), cpu.Registers.getBC(), cpu.Registers.getDE(), cpu.Registers.getHL(), cpu.Registers.SP)
-
 		cpu.Step()
-
 		time.Sleep(100 * time.Millisecond)
 	}
 }
