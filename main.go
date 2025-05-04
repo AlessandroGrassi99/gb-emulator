@@ -18,6 +18,10 @@ func main() {
 		return
 	}
 
+	for _, opcode := range opcodes {
+		fmt.Println(opcode.String())
+	}
+
 	mmu := &MMU{}
 	// Simple program:
 	// 0x0100: LD BC, 0x1234
@@ -51,7 +55,7 @@ func main() {
 		fmt.Printf("PC: 0x%04X | AF: 0x%04X BC: 0x%04X DE: 0x%04X HL: 0x%04X SP: 0x%04X\n",
 			cpu.Registers.PC, cpu.Registers.getAF(), cpu.Registers.getBC(), cpu.Registers.getDE(), cpu.Registers.getHL(), cpu.Registers.SP)
 
-		// cycles := cpu.Step()
+		cpu.Step()
 
 		time.Sleep(100 * time.Millisecond)
 	}
