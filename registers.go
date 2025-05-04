@@ -18,6 +18,10 @@ type Registers struct {
 	SP uint16 // Stack Pointer
 }
 
+func (r *Registers) getA() uint8 {
+	return r.A
+}
+
 func (r *Registers) getAF() uint16 {
 	return (uint16(r.A) << 8) | uint16(r.F)
 }
