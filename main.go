@@ -1,4 +1,5 @@
 //go:generate go run ./tools/gen_opcodes.go
+//go:generate go run ./tools/gen_opcodes_dispatch.go
 package main
 
 import (
