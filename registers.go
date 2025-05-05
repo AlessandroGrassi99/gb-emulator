@@ -35,6 +35,14 @@ func (r *Registers) setAF(value uint16) {
 	r.F = uint8(value & 0x00F0)
 }
 
+func (r *Registers) getB() uint8 {
+	return r.B
+}
+
+func (r *Registers) setB(value uint8) {
+	r.B = value
+}
+
 func (r *Registers) getBC() uint16 {
 	return (uint16(r.B) << 8) | uint16(r.C)
 }
@@ -42,6 +50,14 @@ func (r *Registers) getBC() uint16 {
 func (r *Registers) setBC(value uint16) {
 	r.B = uint8(value >> 8)
 	r.C = uint8(value)
+}
+
+func (r *Registers) getC() uint8 {
+	return r.C
+}
+
+func (r *Registers) setC(value uint8) {
+	r.C = value
 }
 
 func (r *Registers) getDE() uint16 {
@@ -91,11 +107,11 @@ func (r *Registers) addPC(value int8) {
 	r.PC = uint16(int32(r.PC) + int32(value))
 }
 
-func (r *Registers) GetFlag(flag uint8) bool {
+func (r *Registers) getFlag(flag uint8) bool {
 	return (r.F & flag) != 0
 }
 
-func (r *Registers) SetFlag(flag uint8, set bool) {
+func (r *Registers) setFlag(flag uint8, set bool) {
 	if set {
 		// set flag to 1 using the provided mask
 		r.F |= flag
@@ -103,4 +119,10 @@ func (r *Registers) SetFlag(flag uint8, set bool) {
 		// inverse the mask, then AND to clear the specific bit
 		r.F &= ^flag
 	}
+}
+
+func (r *Registers) inc8Flags(orig, res byte) {
+	r.setFlag(ZeroFlag, res == 0)
+	r.setFlag(SubtractFlag, false)
+	r.setFlag(HalfCarryFlag, (orig&0x0F) == 0x0F)
 }

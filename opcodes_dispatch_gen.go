@@ -8,27 +8,27 @@ var opcodesFunc = map[int]func(*CPU, *Instruction) int{
 	// 0x03:               OpIncBC,       // INC BC
 	// 0x04:               OpIncB,        // INC B
 	// 0x05:               OpDecB,        // DEC B
-	// 0x06:               OpLdBN8,       // LD B, n8
+	0x06:               OpLdBN8,       // LD B, n8
 	// 0x07:               OpRlca,        // RLCA
 	// 0x08:               OpLdMemA16SP,  // LD (a16), SP
 	// 0x09:               OpAddHLBC,     // ADD HL, BC
 	// 0x0A:               OpLdAMemBC,    // LD A, (BC)
 	// 0x0B:               OpDecBC,       // DEC BC
-	// 0x0C:               OpIncC,        // INC C
+	0x0C:               OpIncC,        // INC C
 	// 0x0D:               OpDecC,        // DEC C
-	// 0x0E:               OpLdCN8,       // LD C, n8
+	0x0E:               OpLdCN8,       // LD C, n8
 	// 0x0F:               OpRrca,        // RRCA
 	// 0x10:               OpStopN8,      // STOP n8
-	// 0x11:               OpLdDEN16,     // LD DE, n16
+	0x11:               OpLdDEN16,     // LD DE, n16
 	// 0x12:               OpLdMemDEA,    // LD (DE), A
 	// 0x13:               OpIncDE,       // INC DE
 	// 0x14:               OpIncD,        // INC D
 	// 0x15:               OpDecD,        // DEC D
 	// 0x16:               OpLdDN8,       // LD D, n8
-	// 0x17:               OpRla,         // RLA
+	0x17:               OpRla,         // RLA
 	// 0x18:               OpJrE8,        // JR e8
 	// 0x19:               OpAddHLDE,     // ADD HL, DE
-	// 0x1A:               OpLdAMemDE,    // LD A, (DE)
+	0x1A:               OpLdAMemDE,    // LD A, (DE)
 	// 0x1B:               OpDecDE,       // DEC DE
 	// 0x1C:               OpIncE,        // INC E
 	// 0x1D:               OpDecE,        // DEC E
@@ -64,7 +64,7 @@ var opcodesFunc = map[int]func(*CPU, *Instruction) int{
 	// 0x3B:               OpDecSP,       // DEC SP
 	// 0x3C:               OpIncA,        // INC A
 	// 0x3D:               OpDecA,        // DEC A
-	// 0x3E:               OpLdAN8,       // LD A, n8
+	0x3E:               OpLdAN8,       // LD A, n8
 	// 0x3F:               OpCcf,         // CCF
 	// 0x40:               OpLdBB,        // LD B, B
 	// 0x41:               OpLdBC,        // LD B, C
@@ -81,7 +81,7 @@ var opcodesFunc = map[int]func(*CPU, *Instruction) int{
 	// 0x4C:               OpLdCH,        // LD C, H
 	// 0x4D:               OpLdCL,        // LD C, L
 	// 0x4E:               OpLdCMemHL,    // LD C, (HL)
-	// 0x4F:               OpLdCA,        // LD C, A
+	0x4F:               OpLdCA,        // LD C, A
 	// 0x50:               OpLdDB,        // LD D, B
 	// 0x51:               OpLdDC,        // LD D, C
 	// 0x52:               OpLdDD,        // LD D, D
@@ -121,7 +121,7 @@ var opcodesFunc = map[int]func(*CPU, *Instruction) int{
 	// 0x74:               OpLdMemHLH,    // LD (HL), H
 	// 0x75:               OpLdMemHLL,    // LD (HL), L
 	// 0x76:               OpHalt,        // HALT
-	// 0x77:               OpLdMemHLA,    // LD (HL), A
+	0x77:               OpLdMemHLA,    // LD (HL), A
 	// 0x78:               OpLdAB,        // LD A, B
 	// 0x79:               OpLdAC,        // LD A, C
 	// 0x7A:               OpLdAD,        // LD A, D
@@ -195,11 +195,11 @@ var opcodesFunc = map[int]func(*CPU, *Instruction) int{
 	// 0xBE:               OpCpAMemHL,    // CP A, (HL)
 	// 0xBF:               OpCpAA,        // CP A, A
 	// 0xC0:               OpRetNZ,       // RET NZ
-	// 0xC1:               OpPopBC,       // POP BC
+	0xC1:               OpPopBC,       // POP BC
 	// 0xC2:               OpJpNZA16,     // JP NZ, a16
 	// 0xC3:               OpJpA16,       // JP a16
 	// 0xC4:               OpCallNZA16,   // CALL NZ, a16
-	// 0xC5:               OpPushBC,      // PUSH BC
+	0xC5:               OpPushBC,      // PUSH BC
 	// 0xC6:               OpAddAN8,      // ADD A, n8
 	// 0xC7:               OpRstRST00,    // RST $00
 	// 0xC8:               OpRetZ,        // RET Z
@@ -207,7 +207,7 @@ var opcodesFunc = map[int]func(*CPU, *Instruction) int{
 	// 0xCA:               OpJpZA16,      // JP Z, a16
 	// 0xCB:               OpPrefix,      // PREFIX
 	// 0xCC:               OpCallZA16,    // CALL Z, a16
-	// 0xCD:               OpCallA16,     // CALL a16
+	0xCD:               OpCallA16,     // CALL a16
 	// 0xCE:               OpAdcAN8,      // ADC A, n8
 	// 0xCF:               OpRstRST08,    // RST $08
 	// 0xD0:               OpRetNC,       // RET NC
@@ -223,9 +223,9 @@ var opcodesFunc = map[int]func(*CPU, *Instruction) int{
 	// 0xDC:               OpCallCA16,    // CALL C, a16
 	// 0xDE:               OpSbcAN8,      // SBC A, n8
 	// 0xDF:               OpRstRST18,    // RST $18
-	// 0xE0:               OpLdhMemA8A,   // LDH (a8), A
+	0xE0:               OpLdhMemA8A,   // LDH (a8), A
 	// 0xE1:               OpPopHL,       // POP HL
-	// 0xE2:               OpLdhMemCA,    // LDH (C), A
+	0xE2:               OpLdhMemCA,    // LDH (C), A
 	// 0xE5:               OpPushHL,      // PUSH HL
 	// 0xE6:               OpAndAN8,      // AND A, n8
 	// 0xE7:               OpRstRST20,    // RST $20
@@ -264,7 +264,7 @@ var opcodesFunc = map[int]func(*CPU, *Instruction) int{
 	// 270 /* CB 0x0E */ : OpCbRrcMemHL,  // RRC (HL)
 	// 271 /* CB 0x0F */ : OpCbRrcA,      // RRC A
 	// 272 /* CB 0x10 */ : OpCbRlB,       // RL B
-	// 273 /* CB 0x11 */ : OpCbRlC,       // RL C
+	273 /* CB 0x11 */ : OpCbRlC,       // RL C
 	// 274 /* CB 0x12 */ : OpCbRlD,       // RL D
 	// 275 /* CB 0x13 */ : OpCbRlE,       // RL E
 	// 276 /* CB 0x14 */ : OpCbRlH,       // RL H

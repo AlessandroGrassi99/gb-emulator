@@ -20,3 +20,10 @@ func parseHexToUint8(hex string) (uint8, error) {
 
 	return uint8(parsedKey), nil
 }
+
+func boolToUint8(b bool) uint8 {
+	if b {
+		return 1
+	}
+	return 0
+}
