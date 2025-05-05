@@ -18,6 +18,48 @@ type Registers struct {
 	SP uint16 // Stack Pointer
 }
 
+func (r *Registers) getRegisterGetter8(name string) func() uint8 {
+	switch name {
+	case "A":
+		return r.getA
+	case "B":
+		return r.getB
+	case "C":
+		return r.getC
+	case "D":
+		return r.getD
+	case "E":
+		return r.getE
+	case "H":
+		return r.getH
+	case "L":
+		return r.getL
+	default:
+		return nil
+	}
+}
+
+func (r *Registers) getRegisterSetter8(name string) func(uint8) {
+	switch name {
+	case "A":
+		return r.setA
+	case "B":
+		return r.setB
+	case "C":
+		return r.setC
+	case "D":
+		return r.setD
+	case "E":
+		return r.setE
+	case "H":
+		return r.setH
+	case "L":
+		return r.setL
+	default:
+		return nil
+	}
+}
+
 func (r *Registers) getA() uint8 {
 	return r.A
 }
@@ -60,6 +102,14 @@ func (r *Registers) setC(value uint8) {
 	r.C = value
 }
 
+func (r *Registers) getD() uint8 {
+	return r.D
+}
+
+func (r *Registers) setD(value uint8) {
+	r.D = value
+}
+
 func (r *Registers) getDE() uint16 {
 	return (uint16(r.D) << 8) | uint16(r.E)
 }
@@ -69,8 +119,20 @@ func (r *Registers) setDE(value uint16) {
 	r.E = uint8(value)
 }
 
+func (r *Registers) getE() uint8 {
+	return r.E
+}
+
+func (r *Registers) setE(value uint8) {
+	r.E = value
+}
+
 func (r *Registers) getH() uint8 {
 	return r.H
+}
+
+func (r *Registers) setH(value uint8) {
+	r.H = value
 }
 
 func (r *Registers) getHL() uint16 {
@@ -85,6 +147,14 @@ func (r *Registers) setHL(value uint16) {
 func (r *Registers) decHL() {
 	value := r.getHL()
 	r.setHL(value - 1)
+}
+
+func (r *Registers) getL() uint8 {
+	return r.L
+}
+
+func (r *Registers) setL(value uint8) {
+	r.L = value
 }
 
 func (r *Registers) getSP() uint16 {
